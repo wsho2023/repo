@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1" />
+    <title>生産データ登録</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <!-- https://qiita.com/ryosukeintern2022/items/ee9fa4f43dcf00f805f7 -->
+    <h4 style="color:blue">生産データ一覧</h4>
+
+<table border="1" style="border-collapse: collapse">
+<tr>
+    <td>加工部門</td>
+    <td>
+        <input type="search" name="kakobumon_cd" value="" list="kakobumon_datalist">
+        <datalist id="kakobumon_datalist">
+            <option value=""></option>
+            <option value="31100100">31100100：ワニス製造係</option>
+            <option value="31100200">31100200：注型レジン製造係</option>
+            <option value="31200101">31200101：原料班</option>
+            <option value="31200102">31200102：詰め入れ班</option>
+            <option value="31200103">31200103：ACP/NCP班</option>
+            <option value="31200400">31200400：機能材料KWEM管理係</option>
+        </datalist>
+    </td>
+    <td>状態</td>
+    <td><select name="status">
+            <option value="0">未出力</option>
+            <option value="1">出力済</option>
+        </select></td>
+    <td>データ作成日</td>
+    <td><input type="date" name="data_sakusei_date" value="" /></td>  <!--  $[fmt:formatDate value="$[today]" pattern="yyyy-MM-dd -->
+    </tr>
+    <tr>
+        <td  colspan="6">
+            <input type="submit" value="検索" id="searchButton" formaction="SeisanDataSearchServlet" formmethod="post">
+            <input type="submit" value="ファイル出力" formaction="FileOutputServlet" formmethod="post">
+            <a class="form-control-sm bg-primary" id="empchange" data-toggle="modal" data-target="#modal-emp-select">選択</a>
+        </td>
+    </tr>
+    </table>
+    選択された件数:<span id="result">0</span>
+    選択された製造金額:<span id="result2">0</span>
+    <table border="1"  id="tbl1" style="border-collapse: collapse; white-space: nowrap;">
+        <thead>
+            <tr>
+                <th>選択</th><th>No</th><th></th><th>加工部門</th>
+                <th>製伝No</th><th>取引先</th><th>取引先名</th><th>詰め番号</th><th>客先品名</th><th>ロットNo</th>
+                <th>受注数</th><th>生産数</th><th>単位</th><th>製造単価</th><th>製造金額</th><th>型代</th>
+                <th>特発区分</th><th>原産国</th><th>送付先</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>■</td>
+                <td>1</td>
+                <td>
+                    <a class="form-control-sm bg-primary" id="empchange" data-toggle="modal" data-target="#modal-emp-select">編集</a>
+                </td>
+                <td>31100100</td>
+                <td>E0000000001</td>
+                <td>E0001</td>
+                <td>取引先名</td>
+                <td>詰め001</td>
+                <td>HINMEI</td>
+                <td>250501</td>
+                <td>2,000</td>
+                <td>2,000</td>
+                <td>PC</td>
+                <td>1.000</td>
+                <td>2,000</td>
+                <td>0</td>
+                <td>通常</td>
+                <td>日本</td>
+                <td>送付先</td>
+            </tr>
+            <tr>
+                <td>■</td>
+                <td>2</td>
+                <td>
+                    <a class="form-control-sm bg-primary" id="empchange" data-toggle="modal" data-target="#modal-emp-select">編集</a>
+                </td>
+                <td>31100100</td>
+                <td>E0000000002</td>
+                <td>E0002</td>
+                <td>取引先名2</td>
+                <td>詰め002</td>
+                <td>HINMEI</td>
+                <td>250501</td>
+                <td>2,000</td>
+                <td>2,000</td>
+                <td>PC</td>
+                <td>1.000</td>
+                <td>2,000</td>
+                <td>0</td>
+                <td>通常</td>
+                <td>日本</td>
+                <td>送付先</td>
+            </tr>
+        </tbody>
+    </table>
+	<!-- モーダルの設定 -->
+	<div class="modal" id="modal-emp-select" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">編集画面</h6>
+					<button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<table id="modal-emplist-table" class="table table-bordered">
+						<tbody>
+							<tr>
+								<td>製伝No</td>
+								<td id="txtSeidenNo"></td>
+								<td>ﾛｯﾄNo</td>
+								<td id="txtLotNo"></td>
+							</tr>
+							<tr>
+								<td>出荷数</td>
+								<td id="txtShukkaSu"></td>
+								<td>特発区分</td>
+								<td id="txtTokuhatsuKbn"></td>
+							</tr>
+						</tbody>
+					</table>
+					<script language="javascript">
+					/*<![CDATA[*/
+						$(function() {
+                            //table全情報を格納する空の配列を作成
+                            let table_tr = new Array(0)
+                            var seidenNo = null;
+                            var lotNo = null;
+                            var shukkaSu = null;
+                            var tokuhatsuKbn = null;
+							//検索ボタン押下時
+							$(document).on("click", "#searchButton", function() {
+                                // idからtable全情報を取得
+                                let table = document.getElementById('tbl1')
+
+                                // 2重のfor文で、セルの要素1つずつ取得
+                                for (var i=0; i<table.rows.length; i++) {
+                                    record = new Array(0)
+                                    // length.-1している理由は、上記Gifの詳細・削除ボタンの列の情報は必要ないため。
+                                    for (var j=0; j<table.rows[i].cells.length-1; j++) {
+                                        // 1行分の情報
+                                        record.push(table.rows[i].cells[j].innerHTML)
+                                    }
+                                    // 1行目に書いた、全情報を格納する空の配列に追加
+                                    table_tr.push(record)
+                                }
+							});
+							//選択ボタン押下時
+							$(document).on("click", "#empchange", function() {
+                                //行数取得
+                                //var row = tbl1.rows.length;
+                                //列数取得（rowsの引数には行インデックス番号を指定します）
+                                //var col = tbl1.rows[1].cells.length;
+
+                                var idx=$(this).closest('tr').prop('rowIndex');
+                                // 先ほど取得したテーブルの全情報から、インデックスを参照して、押した行の情報を取得する
+                                // 行で取得した情報では文字型のため、数の型に変更
+                                seidenNo = table_tr[idx][4];
+                                lotNo = table_tr[idx][9];
+                                shukkaSu = table_tr[idx][11];
+                                tokuhatsuKbn = table_tr[idx][16];
+                                alert("行数:" + idx + " 製伝No:"+seidenNo +  " ロットNo:"+lotNo + " 生産数:"+shukkaSu + " 特発区分:"+tokuhatsuKbn );
+                                //結果表示
+                                //alert("行数:" + row + " 列数:" + col);
+                                document.getElementById('txtSeidenNo').value = seidenNo;
+                                document.getElementById('txtLotNo').value = lotNo;
+                                document.getElementById('txtShukkaSu').value = shukkaSu;
+                                document.getElementById('txtTokuhatsuKbn').value = tokuhatsuKbn;
+							});
+							//一覧をクリックした(modalempdataセット)
+							$('#modal-emplist-table tbody').on("click", "tr", function() {
+								if ($(this).find('.dataTables_empty').length == 0) {
+									if ( $(this).hasClass('selected') ) {
+										$(this).removeClass('selected');
+									} else {
+										modalemptable2.$('tr.selected').removeClass('selected');
+										$(this).addClass('selected');
+									}
+									modalempdata2=$('#modal-emplist-table').dataTable().fnGetData(this);
+								}
+							});
+						})
+					/*]]>*/
+					</script>
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button type="button" class="btn btn-primary" id="btn-modalemp-update">更新</button>
+		        	<button type="button" class="btn btn-primary" id="btn-modalemp-delete">削除</button>
+		        	<button type="button" class="btn btn-primary" data-dismiss="modal">キャンセル</button>
+		      	</div><!-- /.modal-footer -->
+	 	   	</div><!-- /.modal-content -->
+	 	</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+</body>
+</html>

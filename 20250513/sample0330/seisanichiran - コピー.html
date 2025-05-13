@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="widtd=device-widtd, initial-scale=1" />
+<title>生産データ登録</title>
+
+<body>
+
+<table border="1" style="border-collapse: collapse">
+<tr>
+    <td>事業所</td>
+    <td>
+        <input type="text" name="seidenNo" id="seidenNo"  size="3" maxlength="3">
+    </td>
+    <td>加工部門</td>
+    <td>
+        <input type="text" name="seidenNo" id="seidenNo"  size="8" maxlength="8">
+    </td>
+    <td>状態</td>
+    <td>
+        <input type="text" name="seidenNo" id="seidenNo"  size="3" maxlength="3">
+    </td>
+    <td>データ作成日</td>
+    <td>
+        <input type="text" name="seidenNo" id="seidenNo"  size="12" maxlength="12">
+    </td>
+</tr>
+</table>
+<input type="button" id="tourukuButton" value="登録">
+<input type="button" id="meisaiButton" value="検索">
+<input type="button" id="outputButton" value="ファイル出力">
+
+<input id="cd">
+<input id="name">
+<input id="dept">
+<input type="button" value="社員"
+    onclick="
+        var callback_id = 'callback_xxxx'; //適当にIDをふる
+        window[callback_id] = function(json) { //windowにコールバックを登録
+            document.getElementById('cd').value = json.cd;
+            document.getElementById('name').value = json.name;
+            document.getElementById('dept').value = json.dept;
+            callfunc(); //値が選ばれたタイミングでやりたいことがあれば書く
+        }
+
+        //第2引数でcallbackのID名を渡す。子画面側では window.name として取得できる。
+        window.open('child.html', callback_id, 'width=700,height=500,statusbar=yes');
+    "/>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialog要素のデモ</title>
+    <style>
+        /* ダイアログの背景をカスタマイズ */
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* ダイアログ自体のスタイル */
+        dialog {
+            padding: 2rem;
+            max-width: 500px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ボタンのスタイル */
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .open-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .close-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* モーダル内のコンテンツレイアウト */
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dialog要素のデモ</h1>
+    
+    <!-- モーダルを開くボタン -->
+    <button class="open-button" onclick="openModal()">モーダルを開く</button>
+
+    <!-- ダイアログ要素 -->
+    <dialog id="myDialog">
+        <div class="modal-content">
+            <h2>モーダルダイアログ</h2>
+            <p>これは<code>&lt;dialog&gt;</code>要素を使用したモーダルダイアログです。</p>
+            <p>背景をクリックしても閉じることができます。</p>
+            
+            <form method="dialog" class="modal-buttons">
+                <button class="close-button" value="cancel">閉じる</button>
+            </form>
+        </div>
+    </dialog>
+
+    <button onclick="window.open('child.html', 'modal-dialog', 'width=600,height=400')">モーダルダイアログを開く</button>
+
+    <script>
+        const dialog = document.querySelector('#myDialog');
+
+        // モーダルを開く関数
+        function openModal() {
+            dialog.showModal();
+        }
+
+        // ESCキーでの閉じる操作をハンドリング
+        dialog.addEventListener('cancel', (event) => {
+            event.preventDefault();
+            dialog.close('cancelled');
+        });
+
+        // 背景クリックでの閉じる操作
+        dialog.addEventListener('click', (event) => {
+            const dialogDimensions = dialog.getBoundingClientRect();
+            if (
+                event.clientX < dialogDimensions.left ||
+                event.clientX > dialogDimensions.right ||
+                event.clientY < dialogDimensions.top ||
+                event.clientY > dialogDimensions.bottom
+            ) {
+                dialog.close('cancelled');
+            }
+        });
+    </script>
+</body>
+</html>

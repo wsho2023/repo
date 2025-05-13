@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="widtd=device-widtd, initial-scale=1" />
+<title>生産データ登録</title>
+
+<style>
+.box1 {
+    position: relative;
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    border: solid 1px #000;
+    border-radius: 0px; /* 枠の丸み */
+}
+.box1 .box-title {
+    position: absolute;
+    display: inline-block;
+    top: -9px;
+    left: 10px;
+    padding: 0 9px;
+    line-height: 1;
+    font-size: 19px;
+    background: #FFF;
+    color: #000;
+    /*font-weight: bold;*/
+}
+
+</style>
+</head>
+<body>
+    <h4 style="color:blue">生産データ登録</h4>
+    <form name="form">
+    <fieldset>
+        <!-- 受注残フィールド -->
+        <legend>受注残</legend>
+        <label>製伝No</label>
+        <input type="search" name="seiden_No" value="" autofocus  size="11" maxlength="11">
+        <input type="submit" value="検索" formaction="SeisanNoSearchServlet" formmethod="get"><br>
+
+        <table border="1" style="border-collapse: collapse">
+        <tr>
+            <td width="100">営業所</td>
+            <td width="150"></td>
+            <td width="100">事業所</td>
+            <td width="150"></td>
+            <td width="100">加工部門</td>
+            <td width="150"><label name="kakobumonCd" id="kakobumonCd"></td>
+        </tr>
+        <tr>
+            <td width="100">取引先</td>
+            <td width="150"><label name="torihikisaki_cd" id="torihikisaki_cd"></td>
+            <td width="100">取引先名</td>
+            <td width="150"><label name="torihikisaki_mei" id="torihikisaki_mei"></td>
+            <td width="100">客先品名</td>
+            <td width="150"><label name="kyakusakiHinmei" id="kyakusakiHinmei"></td>
+        </tr>
+        <tr>
+            <td width="100">自社PN</td>
+            <td width="150"><label name="jisyaPN" id="jisyaPN"></td>
+            <td width="100">PJコード</td>
+            <td width="150"><label name="pjCd" id="pjCd"></td>
+            <td width="100">検査表区分</td>
+            <td width="150"><label name="kensaKbn" id="kensaKbn"></td>
+        </tr>
+        <tr>
+            <td width="100">原産国</td>
+            <td width="150"><label name="gensankokuCd" id="gensankokuCd"></td>
+            <td width="100">数量単位</td>
+            <td width="150"><label name="tani" id="tani"></td>
+            <td width="100">受注数</td>
+            <td width="150"><label name="juchuSu" id="juchuSu"></td>
+        </tr>
+        <tr>
+            <td width="100">生産数</td>
+            <td width="150"><label name="seisanSu" id="seisanSu"></td>
+            <td width="100">当日生産数</td>
+            <td width="150"><label name="tojitsu_seisanSu" id="tojitsu_seisanSu"></td>
+            <td width="100">受注残数</td>
+            <td width="150"><label name="jutyuZan" id="jutyuZan"></td>
+        </tr>
+        <tr>
+            <td width="100">製造単価</td>
+            <td width="150"><label name="tanka" id="tanka"></td>
+            <td width="100">型代</td>
+            <td width="150"><label name="katadai" id="katadai"></td>
+            <td width="100">製伝納期</td>
+            <td width="150"><label name="seidenNoki1" id="seidenNoki1"></td>
+        </tr>
+    </table></div>
+    </fieldset>
+
+    <!-- 受注残フィールド -->
+    <div class="box1" style="position:absolute;top:200pt;left:5pt;height:200px;">
+    <span class="box-title">受注残</span>
+    <table border="1" style="border-collapse: collapse">
+        <tr>
+            <td width="150">製伝No</td>
+            <td width="150"  colspan="5">
+                <input type="text" name="seidenNo" id="seidenNo"  size="11" maxlength="11">
+                <input type="button" id="seidenSearchButton" value="検索"></td>
+        </tr>
+        <tr>
+            <td width="150">営業所</td>
+            <td width="150"></td>
+            <td width="150">事業所</td>
+            <td width="150"></td>
+            <td width="150">加工部門</td>
+            <td width="150"><label name="kakobumonCd" id="kakobumonCd"></td>
+        </tr>
+        <tr>
+            <td width="150">取引先</td>
+            <td width="150"><label name="torihikisaki" id="torihikisaki"></td>
+            <td width="150">送付先</td>
+            <td width="150"><label name="sofusaki" id="sofusaki"></td>
+            <td width="150">自社PN</td>
+            <td width="150"><label name="jisyaPN" id="jisyaPN"></td>
+        </tr>
+        <tr>
+            <td width="150">客先品名</td>
+            <td width="150"><label name="kyakusakiHinmei" id="kyakusakiHinmei"></td>
+            <td width="150">PJコード</td>
+            <td width="150"><label name="pjCd" id="pjCd"></td>
+            <td width="150">検査表区分</td>
+            <td width="150"><label name="kensaKbn" id="kensaKbn"></td>
+        </tr>
+        <tr>
+            <td width="150">原産国</td>
+            <td width="150"><label name="gensankokuCd" id="gensankokuCd"></td>
+            <td width="150">単位</td>
+            <td width="150"><label name="tani" id="tani"></td>
+            <td width="150">受注数</td>
+            <td width="150"><label name="juchuSu" id="juchuSu"></td>
+        </tr>
+        <tr>
+            <td width="150">生産数</td>
+            <td width="150"><label name="seisanSu" id="seisanSu"></td>
+            <td width="150">受注残</td>
+            <td width="150"><label name="jutyuZan" id="jutyuZan"></td>
+            <td width="150">製造単価</td>
+            <td width="150"><label name="tanka" id="tanka"></td>
+        </tr>
+        <tr>
+            <td width="150">型代</td>
+            <td width="150"><label name="katadai" id="katadai"></td>
+            <td width="150">製伝納期</td>
+            <td width="150"><label name="seidenNoki1" id="seidenNoki1"></td>
+            <td width="150"></td>
+            <td width="150"></td>
+        </tr>
+    </table></div>
+    <!-- ロットマスタフィールド -->
+    <div class="box1" style="position:absolute;top:380pt;left:5pt;">
+        <span class="box-title">ロットマスタ</span>
+        <table>
+            <tr>
+                <td>社内ロットNo</td>
+                <td><input type="text" name="synaiLotNo" id="synaiLotNo"  size="13" maxlength="13"></td>
+                <td><input type="button" id="LotSearchButton" value="検索"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <table border="1" style="border-collapse: collapse">
+            <tr>
+                <th>社内ロットNo</th>
+                <th>品目コード</th>
+                <th>品名</th>
+                <th>良品残</th>
+                <th>合否判定</th>
+            </tr>
+            <tr>
+                <td width="200"></td>
+                <td width="200"></td>
+                <td width="200"></td>
+                <td width="150"></td>
+                <td width="100"></td>
+            </tr>
+        </table>
+    </div>
+    <!-- 生産データフィールド -->
+    <div class="box1" style="position:absolute;top:470pt;left:5pt;">
+        <span class="box-title">生産データ</span>
+        <table border="1" style="border-collapse: collapse">
+            <tr>
+                <td width="150">作成日</td>
+                <td width="150"></td>
+                <td width="150" colspan="4"></td>
+            </tr>
+            <tr>
+                <td width="150">ロットNo</td>
+                <td width="150"><label name="torihikisaki" id="torihikisaki"></td>
+                <td width="150">生産数</td>
+                <td width="150"><label name="sofusaki" id="sofusaki"></td>
+                <td width="150">製造金額</td>
+                <td width="150"><label name="jisyaPN" id="jisyaPN"></td>
+            </tr>
+            <tr>
+                <td width="150">特発区分</td>
+                <td width="150"><label name="kyakusakiHinmei" id="kyakusakiHinmei"></td>
+                <td width="150">生産日</td>
+                <td width="150"><label name="pjCd" id="pjCd"></td>
+                <td width="150" colspan="2"></td>
+            </tr>
+        </table>
+        <input type="button" id="registButton" value="登録">
+        <input type="button" id="clearButton" value="クリア">
+    </div>
+    </form>
+</body>
+</html>
